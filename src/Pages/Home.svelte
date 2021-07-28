@@ -1,0 +1,38 @@
+<script>
+    import axios from 'axios';
+    import { onMount } from 'svelte';
+    import Card from '../Components/Card.svelte';
+    import Button from '../Components/Button.svelte';
+  
+let recipes = [];
+let ingredients = [];
+    
+onMount(async () => {
+    let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random', { headers: {
+        'x-rapidapi-key': API_KEY_HERE,
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}
+    }).then((response) => {
+        console.log(response.data);
+        recipes = response.data.recipes;
+        ingredients = response.data.recipes[0].extendedIngredients;
+    });
+}); 
+</script>
+
+<div>
+    <h1>Home Page</h1>
+    <Card>
+        <ul>{#each recipes as recipe}
+            <li>{recipe.title}</li>
+            <li>Total Cook Time: {recipe.readyInMinutes} mins</li>
+            <li>Ingredients:</li>
+            <ul>{#each ingredients as ingredient}
+                <li>{ingredient.name}</li>{/each}</ul>
+            <li>Dairy?: {recipe.dairyFree}</li>
+            <li>Gluten Free?: {recipe.glutenFree}</li>
+            <li>Vegan?: {recipe.vegan}</li>
+            <li>Vegetarian?: {recipe.vegetarian}</li>
+            {/each}</ul>
+        <Button />
+    </Card>
+</div>

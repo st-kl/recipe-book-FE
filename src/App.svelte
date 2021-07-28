@@ -1,11 +1,48 @@
 <script>
-	export let name;
+	import { Router, Link, Route } from 'svelte-navigator';
+	import CreateRecipe from "./Pages/CreateRecipe.svelte";
+	import Home from "./Pages/Home.svelte";
+	import Login from "./Pages/Login.svelte";
+	import MyCookBook from "./Pages/MyCookBook.svelte";
+	import Planner from "./Pages/Planner.svelte";
+	import PlayRecipe from "./Pages/PlayRecipe.svelte";
+	import Spoonacular from "./Pages/Spoonacular.svelte";
+	import UserRecipes from "./Pages/UserRecipes.svelte";
+	import Users from "./Pages/Users.svelte";
+	import ViewRecipe from "./Pages/ViewRecipe.svelte";
+	import Nav from './Components/Nav.svelte';
+	
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<Router>
+	<Nav />
+	<main>
+		<h1>Logo</h1>
+	</main>
+	<div>
+		<Route path="/">
+			<Login />
+		</Route>
+		<Route path="/home">
+			<Home />
+		</Route>
+		<Route path="/mycookbook">
+			<MyCookBook />
+		</Route>
+		<Route path="/spoonacular">
+			<Spoonacular />
+		</Route>
+		<Route path="/planner">
+			<Planner />
+		</Route>
+		<Route path="/createrecipe">
+			<CreateRecipe />
+		</Route>
+		<Route path="login" component={Login} />
+		<Route path="mycookbook" component={MyCookBook}>
+		</Route>
+	</div>
+</Router>
 
 <style>
 	main {
