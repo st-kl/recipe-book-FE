@@ -12,7 +12,6 @@ onMount(async () => {
         'x-rapidapi-key': API_KEY_HERE,
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}
     }).then((response) => {
-        console.log(response.data);
         recipes = response.data.recipes;
         ingredients = response.data.recipes[0].extendedIngredients;
     });
