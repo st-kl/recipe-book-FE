@@ -4,8 +4,12 @@
     import Search from '../Components/Search.svelte';
     import Filter from '../Components/Filter.svelte';
     import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
+    // import {slide} from ‘svelte/transition’;
+	// import {quintOut} from ‘svelte/easing’;
 
     const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean','latin american'];
+
+    let visible = false
 
 </script>
 
@@ -19,12 +23,14 @@
         <RecipeScrapeUrl />
     </SideNav>
     <h1>Categories:</h1>
-    <ul>
-        <h3>Cuisines:</h3>
+    <label> <input type="checkbox" bind:checked={visible}>Cuisine</label>
+    {#if visible} 
+    <ul>    
         {#each cuisines as cuisine}
         <li>{cuisine}</li>
         {/each}
-    </ul>
+    </ul>{/if}
+    
     <form>
         <input id="search" placeholder="Enter search term here">
         <button type="submit">Submit</button>
