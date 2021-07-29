@@ -3,13 +3,14 @@
     import { onMount } from 'svelte';
     import Card from '../Components/Card.svelte';
     import Button from '../Components/Button.svelte';
-  
+    import config from '../../config';
+
 let recipes = [];
 let ingredients = [];
     
 onMount(async () => {
     let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random', { headers: {
-        'x-rapidapi-key': API_KEY_HERE,
+        'x-rapidapi-key': config.key,
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}
     }).then((response) => {
         recipes = response.data.recipes;
