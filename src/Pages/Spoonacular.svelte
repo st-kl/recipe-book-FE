@@ -5,25 +5,23 @@
     import Filter from '../Components/Filter.svelte';
     import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
     import axios from 'axios';
-    import {afterUpdate} from 'svelte'
-    // import {slide} from ‘svelte/transition’;
-	// import {quintOut} from ‘svelte/easing’;
+    import config from '../../config';
+    
 
     const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean','latin american'];
 
     let visible = false
     let cuisine = ""
+    let results = []
 
-    let result = []
-    const handleChange = async ()=> {
+    const handleChange = async (event)=> {
         const options= { headers: {
         'x-rapidapi-key': config.key,
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}, params:{cuisine:cuisine, number:"5"}};
          let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random', options)
-         console.log(response.data.result)
-         result = response.data.result
-     }//.then((response) => result = response.data.result);
-    // console.log(result);
+         results = response.data.recipes
+         console.log(results);
+     }
 </script>
 
 <div>
@@ -42,7 +40,9 @@
         <option value={cuisine}>{cuisine}</option>
         {/each}
     </select>{/if}
-    <p>{result}</p>
+    {#each results as result}
+    <p>{result.title}</p>
+    {/each}
     <form>
         <input id="search" placeholder="Enter search term here">
         <button type="submit">Submit</button>
