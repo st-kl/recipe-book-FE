@@ -38,6 +38,9 @@
 		<Route path="/createrecipe">
 			<CreateRecipe />
 		</Route>
+		<Route path="/explore">
+			<Users />
+		</Route>
 		<Route path="login" component={Login} />
 		<Route path="mycookbook" component={MyCookBook}>
 		</Route>

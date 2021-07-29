@@ -8,4 +8,5 @@ import Spoonacular from '../Pages/Spoonacular.svelte';
         <Link to="home">Home</Link>
        <Link to="mycookbook">MyCookBook</Link>
        <Link to='spoonacular'>Spoonacular</Link>
+       <Link to='explore'>Explore</Link>
     </nav>
