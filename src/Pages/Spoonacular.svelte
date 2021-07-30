@@ -23,6 +23,9 @@
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}, params:{cuisine:cuisine, number:"5"}};
 
     const handleChange = async (event)=> {
+        const searchObj = {...options};
+        searchObj.params.cuisine = cuisine;
+        options = searchObj;
         let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search', options)
          results = response.data.results;
     }
