@@ -7,20 +7,35 @@
     import Card from '../Components/Card.svelte';
     import axios from 'axios';
     import config from '../../config';
+    import { afterUpdate, onMount } from 'svelte'
     
     const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean','latin american'];
+    const diets =['vegan', 'vegetarian', 'pescatarian', 'lacto vegetarian', 'ovo vegetarian']
+    
     let visible = false
     let cuisine = ""
+    let dietary = ""
+    let visibleDietary = false
     let results = []
     let searchTerm = ''
     let options= { headers: {
         'x-rapidapi-key': config.key,
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}, params:{cuisine:cuisine, number:"5"}};
+
     const handleChange = async (event)=> {
         let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search', options)
          results = response.data.results;
-         }
+    }
 
+    const handleDiets = async (event)=> {
+        const searchObj = {...options};
+        searchObj.params.diet = dietary;
+        options = searchObj;
+        let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search', options)
+         results = response.data.results;
+
+    }
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const searchObj = {...options};
@@ -39,12 +54,20 @@
         <Filter />
         <RecipeScrapeUrl />
     </SideNav>
-    <h1>Categories:</h1>
+    <h3>Categories:</h3>
     <label> <input type="checkbox" bind:checked={visible}>Cuisine</label>
     {#if visible} 
       <select bind:value={cuisine} on:change={handleChange}>
         {#each cuisines as cuisine}
         <option value={cuisine}>{cuisine}</option>
+        {/each}
+    </select>{/if}
+    <h3>Dietary</h3>
+    <label> <input type="checkbox" bind:checked={visibleDietary}>Dietary</label>
+    {#if visibleDietary} 
+      <select bind:value={dietary} on:change={handleDiets}>
+        {#each diets as diet}
+        <option value={diet}>{diet}</option>
         {/each}
     </select>{/if}
     {#each results as result}
