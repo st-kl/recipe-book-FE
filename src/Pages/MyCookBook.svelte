@@ -14,4 +14,7 @@
             <Filter />
             <RecipeScrapeUrl />
         </SideNav>
+        
     </div>
+
+    <!-- url={url} result={result} -->
