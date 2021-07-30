@@ -12,13 +12,22 @@
     let visible = false
     let cuisine = ""
     let results = []
-
-    const handleChange = async (event)=> {
-        const options= { headers: {
+    let searchTerm = ''
+    let options= { headers: {
         'x-rapidapi-key': config.key,
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}, params:{cuisine:cuisine, number:"5"}};
-         let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random', options)
-         results = response.data.recipes
+    const handleChange = async (event)=> {
+        let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search', options)
+         results = response.data.results;
+         }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const searchObj = {...options};
+        searchObj.params.query = searchTerm;
+        options = searchObj;
+        let response = await axios.get('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search', options)
+         results = response.data.results
          }
 </script>
 
@@ -41,13 +50,12 @@
     {#each results as result}
     <a href={result.sourceUrl}><Card>
         <p>{result.title}</p>
-        <img src={result.image} alt="food" width="100px" height="100px">
+        <img src='https://spoonacular.com/recipeImages/{result.image}' alt="food" width="100px" height="100px">
     </Card>
 </a>
     {/each}
-    <form>
-        <input id="search" placeholder="Enter search term here">
+    <form on:submit={handleSubmit}>
+        <input bind:value={searchTerm} id="search" placeholder="Enter search term here">
         <button type="submit">Submit</button>
     </form>
 </div>
-
