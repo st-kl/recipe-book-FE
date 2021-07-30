@@ -18,9 +18,9 @@
     let visibleDietary = false
     let results = []
     let searchTerm = ''
-    let options= { headers: {
+    let options = { headers: {
         'x-rapidapi-key': config.key,
-        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}, params:{cuisine:cuisine, number:"5"}};
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'}, params:{number:"5"}};
 
     const handleChange = async (event)=> {
         const searchObj = {...options};
