@@ -41,9 +41,6 @@
 		<Route path="/explore">
 			<Users />
 		</Route>
-		<Route path="login" component={Login} />
-		<Route path="mycookbook" component={MyCookBook}>
-		</Route>
 		<Route path="/recipe/:id">
 			<ViewRecipe />
 		</Route>
