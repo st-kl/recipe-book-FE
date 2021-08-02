@@ -14,7 +14,9 @@
             <Filter />
             <RecipeScrapeUrl />
         </SideNav>
-        
+        <main class="my-cookbook">
+            
+        </main>
     </div>
 
     <!-- url={url} result={result} -->
