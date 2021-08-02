@@ -14,8 +14,6 @@
 
   // >>>>>>>>>RECIPE ID = $params.id<<<<<<<<<
 
-  // STILL NEEDS SAVE BUTTON TO SAVE RECIPE TO OUR BE
-
   onMount(async () => {
     let response = await axios
       .get(
