@@ -7,12 +7,14 @@
   import Button from '../Components/Button.svelte';
 
   const params = useParams();
-  let steps = []; //analyzed instructions key on response object
-  let ingredients = []; //extended ingredients key on response object
+  let instructions = [];
+  let ingredients = [];
   let recipe = [];
   let sendRecipe = {};
 
   // >>>>>>>>>RECIPE ID = $params.id<<<<<<<<<
+
+  // AT THE MOMENT, INSTRUCTIONS AND INGREDIENTS ARE NOT RENDERING CORRECTLY AS THE ARRAY IS BEING MUTATED RATHER THAN RE-ASSIGNED
 
   onMount(async () => {
     let response = await axios
@@ -27,14 +29,32 @@
         }
       )
       .then((response) => {
-        console.log(response, 'REPONSE<<<<<'); //VIEW RESPONSE OBJ
         recipe = response.data;
-        steps = response.data.analyzedInstructions[0].steps;
-        ingredients = response.data.extendedIngredients;
+        const steps = response.data.analyzedInstructions[0].steps;
+
+        for (let i = 0; i < steps.length; i++) {
+          instructions.push(steps[i].step);
+        }
+
+        const ings = response.data.extendedIngredients;
+
+        for (let i = 0; i < ings.length; i++) {
+          ingredients.push({
+            name: ings[i].name,
+            amount: ings[i].amount,
+            unit: ings[i].unit,
+          });
+        }
+
+        sendRecipe.servings = recipe.servings;
+        sendRecipe.cookingTime = recipe.CookingMinutes;
+        sendRecipe.preparationTime = recipe.preparationMinutes;
+        sendRecipe.isPublic = false;
+        sendRecipe.notes = '';
         sendRecipe.title = recipe.title;
-        sendRecipe.steps = steps;
+        sendRecipe.instructions = instructions;
         sendRecipe.ingredients = ingredients;
-        sendRecipe.totalCookTime = recipe.readyInMinutes;
+        sendRecipe.totalTime = recipe.readyInMinutes;
         sendRecipe.dairyFree = recipe.dairyFree;
         sendRecipe.glutenFree = recipe.glutenFree;
         sendRecipe.vegan = recipe.vegan;
@@ -52,6 +72,8 @@
         console.log(response, 'POST RESPONSE<<<<<<<');
       });
   };
+  console.log(ingredients, 'ING');
+  console.log(instructions, 'INST');
 </script>
 
 <div>
@@ -73,8 +95,8 @@
         <li>Vegan?: {recipe.vegan}</li>
         <li>Vegetarian?: {recipe.vegetarian}</li>
         <ol>
-          {#each steps as step}
-            <li>{step.step}</li>
+          {#each instructions as instruction}
+            <li>{instruction}</li>
           {/each}
         </ol>
       </ul>
