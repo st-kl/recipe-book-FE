@@ -24,26 +24,13 @@
 
 <div>
   {#if $isAuthenticated}
-  {$user.picture}
-  <span class="text-white">&nbsp;&nbsp;{$user.name} ({$user.email})</span>
+  <span class="text-white">&nbsp;&nbsp;{$user.email}</span>
   {:else}<span>&nbsp;</span>{/if}
 
     {#if $isAuthenticated}
-    <li class="nav-item">
-      <a class="nav-link" href="/#" on:click="{logout}">Log Out</a>
-    </li>
+    <button on:click={logout}>Log Out</button>
     {:else}
-    <li class="nav-item">
-      <a class="nav-link" href="/#" on:click="{login}">Log In</a>
-    </li>
+    <button on:click={login}>Log In</button>
+    <button on:click={login}>Sign Up</button>
     {/if}
-  {#if !$isAuthenticated}
-  <div>
-      <p>not authenticated</p>
-  </div>
-  {:else}
-  <div>
-      <p>authenticated</p>
-  </div>
-  {/if}
 </div>
