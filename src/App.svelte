@@ -1,5 +1,5 @@
 <script>
-	import { Router, Link, Route } from 'svelte-navigator';
+	import { Router, Link, Route, useParams } from 'svelte-navigator';
 	import CreateRecipe from "./Pages/CreateRecipe.svelte";
 	import Home from "./Pages/Home.svelte";
 	import Login from "./Pages/Login.svelte";
@@ -38,8 +38,11 @@
 		<Route path="/createrecipe">
 			<CreateRecipe />
 		</Route>
-		<Route path="login" component={Login} />
-		<Route path="mycookbook" component={MyCookBook}>
+		<Route path="/explore">
+			<Users />
+		</Route>
+		<Route path="/recipe/:id">
+			<ViewRecipe />
 		</Route>
 	</div>
 </Router>

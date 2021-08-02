@@ -3,3 +3,6 @@
 
 .DS_Store
 .env
+
+config.js
+auth0_config.js
