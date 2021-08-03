@@ -4,6 +4,16 @@
     import Search from '../Components/Search.svelte';
     import Filter from '../Components/Filter.svelte';
     import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
+    import axios from 'axios';
+    import {onMount} from 'svelte';
+
+    let recipes = [];
+
+    onMount(async () => {
+        let response = await axios.get('https://mycookeroo.herokuapp.com/api/recipes?userId=1').then((response) => {
+            recipes = response.data.recipes;
+        });
+    })
     </script>
     
     <div>
@@ -14,7 +24,9 @@
             <Filter />
             <RecipeScrapeUrl />
         </SideNav>
-        
+        <section>
+            <p>new section here</p>
+        </section>
     </div>
 
     <!-- url={url} result={result} -->
