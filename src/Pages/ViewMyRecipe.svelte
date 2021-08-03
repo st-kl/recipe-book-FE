@@ -7,7 +7,7 @@
 
   let editOptions = false;
   const params = useParams();
-  const toggleEditting = () => (editOptions = !editOptions);
+  const toggleEditing = () => (editOptions = !editOptions);
   let instructions = [];
   let ingredients = [];
   let recipe = [];
@@ -19,14 +19,19 @@
       )
       .then((response) => {
         recipe = response.data.recipes[0];
-        instructions = recipe.steps;
+        instructions = recipe.instructions;
         ingredients = recipe.ingredients;
+        console.log(recipe);
       });
   });
   // THIS FUNCTION NEEDS TO BE
-  const postRecipe = async () => {
+  const patchRecipe = async () => {
+    recipe.ingredients = ingredients;
     await axios
-      .post(`https://mycookeroo.herokuapp.com/api/recipes`, sendRecipe)
+      .patch(
+        `https://mycookeroo.herokuapp.com/api/recipes/${$params.recipeId}`,
+        recipe
+      )
       .then((response) => {
         console.log(recipe, 'POST ZZZZZZ<<<<<<<');
       });
@@ -35,34 +40,37 @@
 
 <div>
   <h1>View Recipe Page</h1>
-  <button>
-    <Card>
+
+  <ul>
+    <h3>{recipe.title}</h3>
+    <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
+    <button on:click={patchRecipe} class="save-button"> SAVE </button>
     <ul>
-      <h3>{recipe.title}</h3>
-      <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
-      <button on:click={postRecipe} class="save-button"> SAVE </button>
+      <li>Total Cook Time: {recipe.totalCookTime} mins</li>
+      <li>Ingredients:</li>
       <ul>
-        <li>Total Cook Time: {recipe.totalCookTime} mins</li>
-        <li>Ingredients:</li>
-        <ul>
-          {#each ingredients as ingredient, i}
-            <li id={i}>{ingredient.name}</li>
-            {#if editOptions}
-              <input type="text" bind:value={ingredient.name} />
-            {/if}
-          {/each}
-        </ul>
-        <li>Dairy?: {recipe.dairyFree}</li>
-        <li>Gluten Free?: {recipe.glutenFree}</li>
-        <li>Vegan?: {recipe.vegan}</li>
-        <li>Vegetarian?: {recipe.vegetarian}</li>
-        <ol>
-          {#each instructions as instruction}
-            <li>{instruction.step}</li>
-          {/each}
-        </ol>
+        {#each ingredients as ingredient, i}
+          <li id={i}>
+            {ingredient.name}: {ingredient.amount}
+            {ingredient.unit}
+          </li>
+          {#if editOptions}
+            <input type="text" bind:value={ingredient.name} />
+            <input type="number" bind:value={ingredient.amount} />
+            <input type="text" bind:value={ingredient.unit} />
+          {/if}
+        {/each}
       </ul>
+      <li>Dairy?: {recipe.dairyFree}</li>
+      <li>Gluten Free?: {recipe.glutenFree}</li>
+      <li>Vegan?: {recipe.vegan}</li>
+      <li>Vegetarian?: {recipe.vegetarian}</li>
+      <ol>
+        {#each instructions as instruction}
+          <li>{instruction}</li>
+        {/each}
+      </ol>
     </ul>
-    <button class="editOptions" on:click={toggleEditting} />EDIT</button>
-  </Card>
+  </ul>
+  <button class="editOptions" on:click={toggleEditing}>EDIT</button>
 </div>
