@@ -31,7 +31,10 @@
             <Filter />
             <RecipeScrapeUrl />
         </SideNav>
-            <ul>
+        {#if recipes.length === 0}
+        <h1>Loading Your CookBook Recipes...</h1>
+        {:else}
+        <ul>
             {#each recipes as recipe (recipe._id)}
             <Card>
             <h3>{recipe.title}</h3>
@@ -57,6 +60,7 @@
             </Card>
             {/each}
         </ul>
+        {/if}
     </div>
 
   
