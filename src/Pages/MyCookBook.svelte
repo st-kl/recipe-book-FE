@@ -4,18 +4,23 @@
     import Search from '../Components/Search.svelte';
     import Filter from '../Components/Filter.svelte';
     import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
+    import Card from '../Components/Card.svelte';
     import axios from 'axios';
     import {onMount} from 'svelte';
     import {Link} from 'svelte-navigator';
+   
 
     let recipes = [];
+    
 
     onMount(async () => {
         let response = await axios.get('https://mycookeroo.herokuapp.com/api/recipes?userId=1').then((response) => {
             recipes = response.data.recipes;
             console.log(recipes);
         });
-    })
+    });
+
+    
     </script>
     
     <div>
@@ -28,7 +33,7 @@
         </SideNav>
             <ul>
             {#each recipes as recipe (recipe._id)}
-            <section>
+            <Card>
             <h3>{recipe.title}</h3>
             <img src={recipe.image} alt={recipe.title} width="100px" height="100px">
             {#if recipe.servings}
@@ -49,7 +54,7 @@
             <p>GF</p>
             {/if}
             <Link to='/play/{recipe._id}'><button>Start</button></Link>
-            </section>
+            </Card>
             {/each}
         </ul>
     </div>
