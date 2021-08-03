@@ -7,6 +7,7 @@
     const params = useParams();
     let { id } = $params;
     let recipe;
+    let title;
     let ingredients = [];
     let steps = [];
     let instructions = [];
@@ -14,6 +15,7 @@
     onMount(async () => {
         let response = await axios.get(`https://mycookeroo.herokuapp.com/api/recipes?recipeId=${id}`).then((response) => {
            recipe = response.data.recipes[0];
+           title = recipe.title;
            ingredients = recipe.ingredients;
            !recipe.steps ? instructions = recipe.instructions : steps = recipe.steps;
         });
@@ -21,6 +23,9 @@
 </script>
 
 <div>
+    {#if !recipe}
+    <h1>Loading Recipe to Play...</h1>
+    {:else}
     <SideNav>
         <h3>Ingredients:</h3>
         {#each ingredients as {name, amount, unit}}
@@ -30,6 +35,8 @@
         </label>
         {/each}
     </SideNav>
+    <h1>{title}</h1>
+    <button>Let's Get Cooking!</button>
     <main class="steps">
         {#if steps.length !== 0}
         {#each steps as {number, step, instructions}}
@@ -45,6 +52,6 @@
         {/each}
         {/if}
     </main>
+    {/if}
 </div>
-
 
