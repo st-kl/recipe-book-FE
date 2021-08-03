@@ -8,6 +8,7 @@
     let { id } = $params;
     let recipe;
     let title;
+    let start = false;
     let ingredients = [];
     let steps = [];
     let instructions = [];
@@ -20,6 +21,10 @@
            !recipe.steps ? instructions = recipe.instructions : steps = recipe.steps;
         });
     });
+
+    const startRecipe = () => {
+        start = !start;
+    }
 </script>
 
 <div>
@@ -36,7 +41,8 @@
         {/each}
     </SideNav>
     <h1>{title}</h1>
-    <button>Let's Get Cooking!</button>
+    <button on:click={startRecipe}>{!start ? "Let's Get Cooking!" : "I Need A Break!"}</button>
+    {#if start}
     <main class="steps">
         {#if steps.length !== 0}
         {#each steps as {number, step, instructions}}
@@ -52,6 +58,7 @@
         {/each}
         {/if}
     </main>
+    {/if}
     {/if}
 </div>
 
