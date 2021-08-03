@@ -12,6 +12,7 @@
     let ingredients = [];
     let steps = [];
     let instructions = [];
+    let endIndex = 1;
 
     onMount(async () => {
         let response = await axios.get(`https://mycookeroo.herokuapp.com/api/recipes?recipeId=${id}`).then((response) => {
@@ -21,9 +22,17 @@
            !recipe.steps ? instructions = recipe.instructions : steps = recipe.steps;
         });
     });
-
+    
     const startRecipe = () => {
         start = !start;
+    }
+
+    const prevStep = () => {
+        endIndex = endIndex - 1
+    }
+    
+    const nextStep = () => {
+        endIndex = endIndex + 1
     }
 </script>
 
@@ -45,19 +54,23 @@
     {#if start}
     <main class="steps">
         {#if steps.length !== 0}
-        {#each steps as {number, step, instructions}}
+        {#each steps.slice(0, endIndex) as {number, step, instructions}, i}
         <Card>
             <p>{number}: {step}</p>
         </Card>
         {/each}
         {:else}
-        {#each instructions as instruction, i}
+        {#each instructions.slice(0, endIndex) as instruction, i}
         <Card>
-            <p>{i + 1}: {instruction}</p>
+        <p>{i + 1}: {instruction}</p>
         </Card>
         {/each}
         {/if}
     </main>
+    {#if endIndex > 1}
+    <button on:click={prevStep}>Back</button>
+    {/if}
+    <button on:click={nextStep}>Next</button>
     {/if}
     {/if}
 </div>
