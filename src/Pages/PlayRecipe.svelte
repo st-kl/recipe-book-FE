@@ -2,21 +2,31 @@
     import {useParams} from 'svelte-navigator';
     import {onMount} from 'svelte';
     import axios from 'axios';
+    import SideNav from '../Components/SideNav.svelte';
     const params = useParams();
     let { id } = $params;
     let recipe;
-    let ing = [];
+    let ingredients = [];
 
     onMount(async () => {
         let response = await axios.get(`https://mycookeroo.herokuapp.com/api/recipes?recipeId=${id}`).then((response) => {
            recipe = response.data.recipes[0];
-           ing = recipe.ingredients;
-           
+           ingredients = recipe.ingredients;
+           console.log(recipe);
+           console.log(ingredients);
         });
     });
 </script>
 
 <div>
-    <h1>Play Recipe Page</h1>
-    <p>{id}</p>
+    <SideNav>
+        <h1>Play Recipe Page</h1>
+        <h3>Ingredients:</h3>
+        {#each ingredients as {name, amount, unit}}
+        <label>
+            <input type=checkbox>
+            {amount} {unit} {name}
+        </label>
+        {/each}
+    </SideNav>
 </div>
