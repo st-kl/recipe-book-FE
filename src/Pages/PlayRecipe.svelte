@@ -1,5 +1,6 @@
 <script>
     import {useParams} from 'svelte-navigator';
+    import { fly, fade } from 'svelte/transition';
     import {onMount} from 'svelte';
     import axios from 'axios';
     import SideNav from '../Components/SideNav.svelte';
@@ -52,11 +53,13 @@
     <h1>{title}</h1>
     <button on:click={startRecipe}>{!start ? "Let's Get Cooking!" : "I Need A Break!"}</button>
     {#if start}
+    <button on:click={prevStep} disabled={endIndex <= 1}>Back</button>
+    <button on:click={nextStep}>Next</button>
     <main class="steps">
         {#if steps.length !== 0}
         {#each steps.slice(0, endIndex) as {number, step, instructions}, i}
         <Card>
-            <p>{number}: {step}</p>
+            <p in:fly="{{ delay: 100, y: 200, opacity: 0.9, duration: 1000}}" out:fade>{number}: {step}</p>
         </Card>
         {/each}
         {:else}
@@ -67,11 +70,6 @@
         {/each}
         {/if}
     </main>
-    {#if endIndex > 1}
-    <button on:click={prevStep}>Back</button>
-    {/if}
-    <button on:click={nextStep}>Next</button>
     {/if}
     {/if}
 </div>
-
