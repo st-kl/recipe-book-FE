@@ -14,13 +14,13 @@
 
   // USER ID HARDCODED FOR NOW
 
-let results =[]
+  let results = [];
 
   onMount(async () => {
-    let response = await axios
-      .get(`https://mycookeroo.herokuapp.com/api/recipes?userId=1`)
-      results = response.data.recipes
-      console.log(results[0])
+    let response = await axios.get(
+      `https://mycookeroo.herokuapp.com/api/recipes?userId=1`
+    );
+    results = response.data.recipes;
   });
 </script>
 
@@ -34,17 +34,22 @@ let results =[]
   </SideNav>
   <main class="my-cookbook">
     {#each results as result}
-    <Link to="/recipes?recipeId={result._id}">
-    <Card><h3 class="myRecipeTitle">
-      {result.title}
-    </h3>
-    <img src="{result.image}" alt={result._id}
-    width="100px"
-    height="100px">
-    </Card>
-    </Link>
-  {/each}
-  <main/>
+      <Link to="/recipes/{result._id}">
+        <Card
+          ><h3 class="myRecipeTitle">
+            {result.title}
+          </h3>
+          <img
+            src={result.image}
+            alt={result._id}
+            width="100px"
+            height="100px"
+          />
+        </Card>
+      </Link>
+    {/each}
+    <main />
+  </main>
 </div>
 
 <!-- url={url} result={result} -->
