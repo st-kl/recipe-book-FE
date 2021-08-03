@@ -14,7 +14,6 @@
 
   // >>>>>>>>>RECIPE ID = $params.id<<<<<<<<<
 
-  // AT THE MOMENT, INSTRUCTIONS AND INGREDIENTS ARE NOT RENDERING CORRECTLY AS THE ARRAY IS BEING MUTATED RATHER THAN RE-ASSIGNED
 
   onMount(async () => {
     let response = await axios
@@ -32,20 +31,25 @@
         recipe = response.data;
         const steps = response.data.analyzedInstructions[0].steps;
 
-        for (let i = 0; i < steps.length; i++) {
-          instructions.push(steps[i].step);
-        }
+        const newInstructions = []
 
+        for (let i = 0; i < steps.length; i++) {
+
+          newInstructions.push(steps[i].step);
+        }
+        instructions = [...newInstructions]
         const ings = response.data.extendedIngredients;
 
+        const newIngredients = []
         for (let i = 0; i < ings.length; i++) {
-          ingredients.push({
+
+          newIngredients.push({
             name: ings[i].name,
             amount: ings[i].amount,
             unit: ings[i].unit,
           });
         }
-
+        ingredients = [...newIngredients] 
         sendRecipe.servings = recipe.servings;
         sendRecipe.cookingTime = recipe.CookingMinutes;
         sendRecipe.preparationTime = recipe.preparationMinutes;
@@ -72,8 +76,8 @@
         console.log(response, 'POST RESPONSE<<<<<<<');
       });
   };
-  console.log(ingredients, 'ING');
-  console.log(instructions, 'INST');
+  // console.log(ingredients, 'ING');
+  // console.log(instructions, 'INST');
 </script>
 
 <div>
