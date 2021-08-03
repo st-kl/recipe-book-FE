@@ -13,12 +13,13 @@
 
   // USER ID HARDCODED FOR NOW
 
+let results =[]
+
   onMount(async () => {
     let response = await axios
       .get(`https://mycookeroo.herokuapp.com/api/recipes?userId=1`)
-      .then((response) => {
-        console.log(response.data, 'COOKBOOK DATA FROM DB');
-      });
+      results = response.data.recipes
+      console.log(results[0].title)
   });
 </script>
 
@@ -30,7 +31,14 @@
     <Filter />
     <RecipeScrapeUrl />
   </SideNav>
-  <main class="my-cookbook" />
+  <main class="my-cookbook">
+    {#each results as result}
+    <Card><h3 class="myRecipeTitle">
+      {result.title}
+    </h3>
+  </Card>
+  {/each}
+  <main/>
 </div>
 
 <!-- url={url} result={result} -->
