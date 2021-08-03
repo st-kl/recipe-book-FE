@@ -10,6 +10,7 @@
   import Search from '../Components/Search.svelte';
   import Filter from '../Components/Filter.svelte';
   import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
+  import { Link } from 'svelte-navigator';
 
   // USER ID HARDCODED FOR NOW
 
@@ -19,7 +20,7 @@ let results =[]
     let response = await axios
       .get(`https://mycookeroo.herokuapp.com/api/recipes?userId=1`)
       results = response.data.recipes
-      console.log(results[0].title)
+      console.log(results[0])
   });
 </script>
 
@@ -33,10 +34,15 @@ let results =[]
   </SideNav>
   <main class="my-cookbook">
     {#each results as result}
+    <Link to="/recipes?recipeId={result._id}">
     <Card><h3 class="myRecipeTitle">
       {result.title}
     </h3>
-  </Card>
+    <img src="{result.image}" alt={result._id}
+    width="100px"
+    height="100px">
+    </Card>
+    </Link>
   {/each}
   <main/>
 </div>
