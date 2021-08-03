@@ -5,11 +5,12 @@
   import Card from '../Components/Card.svelte';
   import Button from '../Components/Button.svelte';
 
+  let editOptions = false;
   const params = useParams();
+  const toggleEditting = () => (editOptions = !editOptions);
   let instructions = [];
   let ingredients = [];
   let recipe = [];
-  console.log($params.recipeId, 'PARAMS<<<<<<<<');
 
   onMount(async () => {
     let response = await axios
@@ -20,7 +21,6 @@
         recipe = response.data.recipes[0];
         instructions = recipe.steps;
         ingredients = recipe.ingredients;
-        console.log(recipe, 'RECIPE<<<<<<<');
       });
   });
   // THIS FUNCTION NEEDS TO BE
@@ -35,7 +35,8 @@
 
 <div>
   <h1>View Recipe Page</h1>
-  <Card>
+  <button>
+    <Card>
     <ul>
       <h3>{recipe.title}</h3>
       <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
@@ -44,8 +45,12 @@
         <li>Total Cook Time: {recipe.totalCookTime} mins</li>
         <li>Ingredients:</li>
         <ul>
-          {#each ingredients as ingredient}
-            <li>{ingredient.name}</li>{/each}
+          {#each ingredients as ingredient, i}
+            <li id={i}>{ingredient.name}</li>
+            {#if editOptions}
+              <input type="text" bind:value={ingredient.name} />
+            {/if}
+          {/each}
         </ul>
         <li>Dairy?: {recipe.dairyFree}</li>
         <li>Gluten Free?: {recipe.glutenFree}</li>
@@ -58,6 +63,6 @@
         </ol>
       </ul>
     </ul>
-    <Button />
+    <button class="editOptions" on:click={toggleEditting} />EDIT</button>
   </Card>
 </div>
