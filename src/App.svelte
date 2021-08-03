@@ -44,6 +44,9 @@
 		<Route path="/recipe/:id">
 			<ViewRecipe />
 		</Route>
+		<Route path="/play/:id">
+			<PlayRecipe />
+		</Route>
 	</div>
 </Router>
 

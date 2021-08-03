@@ -6,6 +6,7 @@
     import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
     import axios from 'axios';
     import {onMount} from 'svelte';
+    import {Link} from 'svelte-navigator';
 
     let recipes = [];
 
@@ -47,7 +48,7 @@
             {:else if recipe.glutenFree}
             <p>GF</p>
             {/if}
-            <button>Start</button>
+            <Link to='/play/{recipe._id}'><button>Start</button></Link>
             </section>
             {/each}
         </ul>
