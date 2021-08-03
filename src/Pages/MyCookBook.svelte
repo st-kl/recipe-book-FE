@@ -12,6 +12,7 @@
     onMount(async () => {
         let response = await axios.get('https://mycookeroo.herokuapp.com/api/recipes?userId=1').then((response) => {
             recipes = response.data.recipes;
+            console.log(recipes);
         });
     })
     </script>
@@ -24,9 +25,32 @@
             <Filter />
             <RecipeScrapeUrl />
         </SideNav>
-        <section>
-            <p>new section here</p>
-        </section>
+            <ul>
+            {#each recipes as recipe (recipe._id)}
+            <section>
+            <h3>{recipe.title}</h3>
+            <img src={recipe.image} alt={recipe.title} width="100px" height="100px">
+            {#if recipe.servings}
+            <p>Serves: {recipe.servings}</p>
+            {/if}
+            {#if recipe.totalTime}
+            <p>Total Time: {recipe.totalTime}m</p>
+            {:else if recipe.totalCookTime}
+            <p>Total Time: {recipe.totalCookTime}m</p>
+            {/if}
+            {#if recipe.vegan}
+            <p>VE</p>
+            {:else if recipe.vegetarian}
+            <p>VEG</p>
+            {:else if recipe.dairyFree}
+            <p>DF</p>
+            {:else if recipe.glutenFree}
+            <p>GF</p>
+            {/if}
+            <button>Start</button>
+            </section>
+            {/each}
+        </ul>
     </div>
 
-    <!-- url={url} result={result} -->
+  
