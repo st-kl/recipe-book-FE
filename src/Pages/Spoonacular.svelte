@@ -98,39 +98,100 @@
   <h1>Spoonacular Page</h1>
   <SideNav>
     <div class="side-nav-contents">
-      <h3>Recipe Search</h3>
-      <!-- <Search /> -->
-      <Filter />
-      <div>
-        <h3>Categories:</h3>
-        <label> <input type="checkbox" bind:checked={visible} />Cuisine</label>
+      <div class="recipe-search">
+        <h3>Recipe Search</h3>
+        <form on:submit={handleSubmit}>
+          <input
+            class="search"
+            bind:value={searchTerm}
+            id="search"
+            placeholder="Enter search term here"
+          />
+          <button class="search" type="submit">Search</button>
+        </form>
       </div>
-      <div>
-        <h3>Dietary</h3>
+      <style>
+        .recipe-search,
+        .search,
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+        }
+        button {
+          padding: 0.5em 2em;
+          background-color: black;
+          color: white;
+          border-radius: 0.2em;
+          margin top: 20px;
+        }
+        button:hover {
+          background-color: rgb(132, 8, 144);
+        }
+        #search {
+          width: 200px;
+          height: 30px;
+          margin: 0 0 10px 0;
+          padding-left: 2em;
+          font-size: 1em;
+        }
+      </style>
+      <div class="filter">
+        <h3>Categories</h3>
         <label>
-          <input type="checkbox" bind:checked={visibleDietary} />Dietary</label
+          <input
+            class="checkbox"
+            type="checkbox"
+            bind:checked={visible}
+          />Cuisine Menu</label
         >
       </div>
-      <form on:submit={handleSubmit}>
-        <input
-          bind:value={searchTerm}
-          id="search"
-          placeholder="Enter search term here"
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <div class="filter" id="bottom-checkbox">
+        <h3>Dietary</h3>
+        <label>
+          <input
+            class="checkbox"
+            type="checkbox"
+            bind:checked={visibleDietary}
+          />Dietary Menu</label
+        >
+      </div>
+      <style>
+        .filter {
+          width: 200px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        label {
+          display: flex;
+          width: 200px;
+          align-items: center;
+          justify-content: flex-start;
+        }
+        input {
+          width: 2em;
+        }
+        .checkbox {
+          margin-left: 1em;
+        }
+        #bottom-checkbox {
+          margin-bottom: 100px;
+        }
+      </style>
     </div>
   </SideNav>
   <div class="main-content">
     <div class="spoonacular-recipes">
       {#if visible}
-        <select bind:value={cuisine} on:change={handleChange}>
+        <select id="cuisine-drop" bind:value={cuisine} on:change={handleChange}>
           {#each cuisines as cuisine}
             <option value={cuisine}>{cuisine}</option>
           {/each}
         </select>{/if}
       {#if visibleDietary}
-        <select bind:value={dietary} on:change={handleDiets}>
+        <select id="diet-drop" bind:value={dietary} on:change={handleDiets}>
           {#each diets as diet}
             <option value={diet}>{diet}</option>
           {/each}
@@ -138,16 +199,60 @@
       {#each results as result}
         <Link to="/recipe/{result.id}">
           <Card>
-            <p>{result.title}</p>
-            <img
-              src="https://spoonacular.com/recipeImages/{result.image}"
-              alt="food"
-              width="100px"
-              height="100px"
-            />
+            <div class="small-recipe-card">
+              <img
+                src="https://spoonacular.com/recipeImages/{result.image}"
+                alt="food"
+                class="small-recipe-image"
+              />
+              <p class="card-text">{result.title}</p>
+            </div>
           </Card>
         </Link>
       {/each}
     </div>
   </div>
 </div>
+
+<style>
+  #cuisine-drop {
+    position: fixed;
+    height: 40px;
+    width: 150px;
+    top: 440px;
+    left: 90px;
+  }
+  #diet-drop {
+    position: fixed;
+    height: 40px;
+    width: 150px;
+    top: 570px;
+    left: 90px;
+  }
+  .spoonacular-recipes {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+  }
+  .small-recipe-card {
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 260px;
+    margin: 0 2em 1em 1em;
+  }
+
+  .small-recipe-image {
+    width: 200px;
+    height: 150px;
+    z-index: 10;
+  }
+
+  .card-text {
+    padding: 0 1em;
+  }
+</style>

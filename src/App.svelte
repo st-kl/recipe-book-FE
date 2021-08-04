@@ -14,13 +14,17 @@
   import ViewMyRecipe from './Pages/ViewMyRecipe.svelte';
 </script>
 
+<svelte:head>
+  <link
+    href="https://fonts.googleapis.com/css?family=Satisfy"
+    rel="stylesheet"
+  />
+</svelte:head>
+
 <Router>
-
-
-
   <Nav />
 
-  <div class=whole-app>
+  <div class="whole-app">
     <Route path="/">
       <Login />
     </Route>
@@ -49,11 +53,9 @@
       <ViewRecipe />
     </Route>
     <Route path="/play/:id">
-			<PlayRecipe />
-		</Route>
+      <PlayRecipe />
+    </Route>
   </div>
-
-
 </Router>
 
 <style>

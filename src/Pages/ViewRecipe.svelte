@@ -14,7 +14,6 @@
 
   // >>>>>>>>>RECIPE ID = $params.id<<<<<<<<<
 
-
   onMount(async () => {
     let response = await axios
       .get(
@@ -31,25 +30,23 @@
         recipe = response.data;
         const steps = response.data.analyzedInstructions[0].steps;
 
-        const newInstructions = []
+        const newInstructions = [];
 
         for (let i = 0; i < steps.length; i++) {
-
           newInstructions.push(steps[i].step);
         }
-        instructions = [...newInstructions]
+        instructions = [...newInstructions];
         const ings = response.data.extendedIngredients;
 
-        const newIngredients = []
+        const newIngredients = [];
         for (let i = 0; i < ings.length; i++) {
-
           newIngredients.push({
             name: ings[i].name,
             amount: ings[i].amount,
             unit: ings[i].unit,
           });
         }
-        ingredients = [...newIngredients] 
+        ingredients = [...newIngredients];
         sendRecipe.servings = recipe.servings;
         sendRecipe.cookingTime = recipe.CookingMinutes;
         sendRecipe.preparationTime = recipe.preparationMinutes;
@@ -80,31 +77,34 @@
   // console.log(instructions, 'INST');
 </script>
 
-<div>
-  <h1>View Recipe Page</h1>
-  <Card>
-    <ul>
-      <h3>{recipe.title}</h3>
-      <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
-      <button on:click={postRecipe} class="save-button"> SAVE </button>
+<div class="single-recipe">
+  <div class="recipe-left">
+    <Card>
       <ul>
-        <li>Total Cook Time: {recipe.readyInMinutes} mins</li>
-        <li>Ingredients:</li>
+        <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
+        <h3>{recipe.title}</h3>
+        <button on:click={postRecipe} class="save-button"> SAVE </button>
         <ul>
-          {#each ingredients as ingredient}
-            <li>{ingredient.name}</li>{/each}
+          <li>Total Cook Time: {recipe.readyInMinutes} mins</li>
+          <li>Ingredients:</li>
+          <ul>
+            {#each ingredients as ingredient}
+              <li>{ingredient.name}</li>{/each}
+          </ul>
+          <li>Dairy?: {recipe.dairyFree}</li>
+          <li>Gluten Free?: {recipe.glutenFree}</li>
+          <li>Vegan?: {recipe.vegan}</li>
+          <li>Vegetarian?: {recipe.vegetarian}</li>
         </ul>
-        <li>Dairy?: {recipe.dairyFree}</li>
-        <li>Gluten Free?: {recipe.glutenFree}</li>
-        <li>Vegan?: {recipe.vegan}</li>
-        <li>Vegetarian?: {recipe.vegetarian}</li>
-        <ol>
-          {#each instructions as instruction}
-            <li>{instruction}</li>
-          {/each}
-        </ol>
       </ul>
-    </ul>
+    </Card>
+  </div>
+  <div class="recipe-right">
     <Button />
-  </Card>
+    <ol>
+      {#each instructions as instruction}
+        <li>{instruction}</li>
+      {/each}
+    </ol>
+  </div>
 </div>

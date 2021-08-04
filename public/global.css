@@ -8,7 +8,7 @@ body {
 body {
   color: #333;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
@@ -27,33 +27,28 @@ body {
 .nav-left {
   display: flex;
   justify-content: space-between;
-  width: 40vw;
+  align-items: center;
+  width: 50vw;
   padding: 0 0 0 2em;
 }
 
 .nav-left-right-side {
   display: flex;
   justify-content: space-between;
-  width: 20vw;
+  width: 25vw;
 }
 
 .main-content {
   position: absolute;
   height: 88vh;
-  width: 60vw;
+  width: 66vw;
   left: 30vw;
   top: 12vh;
   margin: 1vh 1vw;
-  padding: 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: orange;
-}
-
-.profile-logo {
-  padding: 2em;
 }
 
 .side-nav {
@@ -61,7 +56,7 @@ body {
   top: 12vh;
   margin: 4vh 3vw;
   background-color: #f4f4f4;
-  width: 25vw;
+  width: 280px;
   height: 80vh;
 }
 
@@ -71,27 +66,27 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   padding: 2em;
 }
 
 a {
-  color: rgb(0, 100, 200);
+  color: black;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: rgb(132, 8, 144);
 }
 
-a:visited {
-  color: rgb(0, 80, 160);
-}
+/* a:visited {
+  color: rgb(125, 0, 160);
+} */
 
 label {
   display: block;
 }
 
-input,
 button,
 select,
 textarea {
@@ -125,4 +120,31 @@ button:not(:disabled):active {
 
 button:focus {
   border-color: #666;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.single-recipe {
+  display: flex;
+  height: 88vh;
+  margin-top: 12vh;
+}
+
+.recipe-left,
+.recipe-right {
+  width: 50vw;
+}
+
+.recipe-left {
+  background-color: #f4f4f4;
+}
+
+.recipe-pic {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
 }
