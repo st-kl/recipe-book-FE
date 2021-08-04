@@ -141,10 +141,114 @@ ul {
 
 .recipe-left {
   background-color: #f4f4f4;
+  margin: 4vh 3vw;
+  padding: 2em;
+}
+
+.recipe-right {
+  padding: 1em 2.5em 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recipe-pic-title {
+  display: flex;
+}
+
+.recipe-title {
+  display: flex;
+
+  font-family: Satisfy, 'Courier New', Courier, monospace;
+  font-size: xx-large;
+}
+
+.recipe-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-sub1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-sub2 {
+  display: flex;
+}
+
+.info2 {
+  background-color: black;
+  color: white;
+  padding: 0.2em 0.5em;
+  width: 40px;
+  margin-right: 20px;
+  text-align: center;
+  border-radius: 0.2em;
+  font-size: 12px;
+}
+
+.yeild,
+.cook-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-style: solid;
+  border-width: 2px;
+  padding: 0.5em 1em;
+  width: 80px;
 }
 
 .recipe-pic {
   height: 200px;
   width: 200px;
   object-fit: cover;
+  margin-right: 1em;
+}
+
+.ingredients-sec {
+  display: flex;
+  margin-top: 2em;
+}
+
+.ingredients-list {
+  display: flex;
+}
+
+#ingredients-heading,
+#notes-title {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.ingredient-unit {
+  width: 90px;
+}
+
+.ingredient-amount {
+  width: 70px;
+}
+
+.ingredient-name {
+  width: 170px;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-input {
+  width: 150px;
+  height: 220px;
+}
+
+.save-button {
+  margin-bottom: 2em;
+}
+
+.save-button:hover {
+  background-color: rgba(132, 8, 144, 0.2);
 }
