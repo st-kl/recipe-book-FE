@@ -54,10 +54,10 @@
             {amount} {unit} {name} 
         </label>
         {/each}
-        <button class="start" on:click={startRecipe}>{!start ? "Let's Get Cooking!" : "I Need A Break!"}</button>
+        <button class="{start ? 'start red' : 'start green'}" on:click={startRecipe}>{!start ? "Let's Get Cooking!" : "I Need A Break!"}</button>
         {#if start}
-        <button class="controls" id="back" on:click={prevStep} disabled={endIndex <= 1}>Back</button>
-        <button class="controls" id="next" on:click={nextStep} disabled={endIndex === steps.length || endIndex === instructions.length}>Next</button>
+        <button class="controls" id="back" on:click={prevStep} disabled={endIndex <= 1}>←</button>
+        <button class="controls" id="next" on:click={nextStep} disabled={endIndex === steps.length || endIndex === instructions.length}>→</button>
         {/if}
     </div>
     </SideNav>
@@ -121,13 +121,24 @@
     }
     .start {
         position: absolute;
-        bottom: 6vh;
+        bottom: 8vh;
         left: 5vw;
+        border-radius: 30px;
+        padding: 10px;
+    }
+    .red {
+        border: red solid 2px;
+    }
+    .green {
+        border: green solid 2px;
     }
     .controls {
         display: inline;
         position: relative;
         bottom: 0.1vh;
+        border-radius: 50%;
+        font-size: 20px;
+        padding: 10px;
     }
     .steps {
         text-align: center;
