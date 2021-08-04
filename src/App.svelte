@@ -15,6 +15,7 @@
 </script>
 
 <Router>
+
   <Nav />
 
   <div class=whole-app>
@@ -48,6 +49,7 @@
       <ViewRecipe />
     </Route>
   </div>
+
 </Router>
 
 <style>

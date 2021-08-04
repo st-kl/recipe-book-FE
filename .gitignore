@@ -5,3 +5,4 @@
 .env
 
 config.js
+auth0_config.js
