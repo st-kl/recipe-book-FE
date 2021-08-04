@@ -1,4 +1,5 @@
 <script>
+
     import Profile from '../Components/Profile.svelte';
     import SideNav from '../Components/SideNav.svelte';
     import Search from '../Components/Search.svelte';
@@ -64,4 +65,4 @@
         {/if}
     </div>
 
-  
+ 
