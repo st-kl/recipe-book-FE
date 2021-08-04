@@ -16,6 +16,8 @@
 
 <Router>
 
+
+
   <Nav />
 
   <div class=whole-app>
@@ -43,12 +45,14 @@
     <Route path="/explore">
       <Users />
     </Route>
-    <Route path="login" component={Login} />
-    <Route path="mycookbook" component={MyCookBook} />
     <Route path="/recipe/:id">
       <ViewRecipe />
     </Route>
+    <Route path="/play/:id">
+			<PlayRecipe />
+		</Route>
   </div>
+
 
 </Router>
 
