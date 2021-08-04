@@ -1,5 +1,8 @@
 <script>
     import axios from 'axios';
+    let name;
+    let servings;
+    let cookingTime;
     let singleIngredient;
     let amount;
     let unit;
@@ -10,9 +13,8 @@
     let vegetarian = false;
     let df = false;
     let gf = false;
+    let submitted;
     let sendRecipe = {};
-    //make sure all fields are bound to variables in order to send post request
-    //hardcode user id on post request
 
     const handleIngredients = () => {
         const fullIng = amount + " " + unit + " " + singleIngredient;
@@ -25,24 +27,51 @@
         newStep = '';
     }
 
-    const handleSubmit = async () => {
-        await axios.post(`https://mycookeroo.herokuapp.com/api/recipes`, sendRecipe).then((response) => {
-            console.log(response, "<< post response");
-        })
+    const makeSendRecipe = () => {
+        sendRecipe.title = name;
+        sendRecipe.servings = servings;
+        sendRecipe.totalTime = cookingTime;
+        sendRecipe.ingredients = [{name: singleIngredient, amount: amount, unit: unit}];
+        sendRecipe.instructions = steps;
+        sendRecipe.vegan = vegan;
+        sendRecipe.vegetarian = vegetarian;
+        sendRecipe.dairyFree = df;
+        sendRecipe.glutenFree = gf;
+        sendRecipe.userId = '1';
     }
 
-</script>
+    const handleSubmit = async () => {
+        makeSendRecipe();
+        submitted = true;
+        name = "";
+        servings = "";
+        cookingTime = "";
+        singleIngredient = "";
+        amount = "";
+        unit = "";
+        newStep = "";
+        ingredients = [];
+        steps = [];
+        vegan = false;
+        vegetarian = false;
+        df = false;
+        gf = false;
+        await axios.post(`https://mycookeroo.herokuapp.com/api/recipes`, sendRecipe).then((response) => {
+            console.log(response);
+        });
+    }
+    </script>
 
 
 <div>
     <h1>Create Recipe Page</h1>
     <form>
         <label for="name">Name</label>
-        <input type="text" name="name" placeholder="name" required>
+        <input bind:value={name} type="text" name="name" placeholder="name" required>
         <label for="servings">Servings</label>
-        <input type="text" name="servings" placeholder="servings" required>
+        <input bind:value={servings} type="text" name="servings" placeholder="servings" required>
         <label for="cookTime">Cooking Time</label>
-        <input type="text" name="cookTime" placeholder="cooking time (min)" required>
+        <input bind:value={cookingTime} type="text" name="cookTime" placeholder="cooking time (min)" required>
         <h4>Ingredients - Click to add each one</h4>
         <label for="ing">Name</label>
         <input bind:value={singleIngredient} type="text" name="ing" placeholder="name" required>
@@ -73,5 +102,9 @@
             <p>{i + 1}: {step}</p>
             {/each}
         </section>
+        {#if submitted}
+        <h4>Your recipe has been added to your cookbook!</h4>
+        <button on:click="{() => submitted = !submitted}">Add Another</button>
+        {/if}
     </main>
 </div>
