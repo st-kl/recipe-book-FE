@@ -41,16 +41,11 @@
         <input bind:value={newStep} type="text" name="step" placeholder="step" required>
         <button type="button" on:click={handleSteps}>+</button>
         <h4>Dietary Info - Click all that apply</h4>
-        <label for="vegan">Vegan</label>
-        <input type="checkbox" name="vegan">
-        <label for="vegetarian">Vegetarian</label>
-        <input type="checkbox" name="vegetarian">
-        <label for="df">Dairy Free</label>
-        <input type="checkbox" name="df">
-        <label for="gf">Gluten Free</label>
-        <input type="checkbox" name="gf">
-    </form>
-    <main>
+        <label><input type="checkbox" name="vegan">Vegan</label>
+        <label><input type="checkbox" name="vegetarian">Vegetarian</label>
+        <label><input type="checkbox" name="df">Dairy Free</label>
+        <label><input type="checkbox" name="gf">Gluten Free</label>
+        </form><main>
         <section class="ings">
             {#each ingredients as ingredient}
             <p>{ingredient}</p>
