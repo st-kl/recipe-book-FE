@@ -1,10 +1,18 @@
 <script>
+    import axios from 'axios';
     let singleIngredient;
     let amount;
     let unit;
     let newStep;
     let ingredients = [];
     let steps = [];
+    let vegan = false;
+    let vegetarian = false;
+    let df = false;
+    let gf = false;
+    let sendRecipe = {};
+    //make sure all fields are bound to variables in order to send post request
+    //hardcode user id on post request
 
     const handleIngredients = () => {
         const fullIng = amount + " " + unit + " " + singleIngredient;
@@ -16,6 +24,13 @@
         steps = [...steps, newStep];
         newStep = '';
     }
+
+    const handleSubmit = async () => {
+        await axios.post(`https://mycookeroo.herokuapp.com/api/recipes`, sendRecipe).then((response) => {
+            console.log(response, "<< post response");
+        })
+    }
+
 </script>
 
 
@@ -41,11 +56,13 @@
         <input bind:value={newStep} type="text" name="step" placeholder="step" required>
         <button type="button" on:click={handleSteps}>+</button>
         <h4>Dietary Info - Click all that apply</h4>
-        <label><input type="checkbox" name="vegan">Vegan</label>
-        <label><input type="checkbox" name="vegetarian">Vegetarian</label>
-        <label><input type="checkbox" name="df">Dairy Free</label>
-        <label><input type="checkbox" name="gf">Gluten Free</label>
-        </form><main>
+        <label><input type="checkbox" name="vegan" bind:checked={vegan}>Vegan</label>
+        <label><input type="checkbox" name="vegetarian" bind:checked={vegetarian}>Vegetarian</label>
+        <label><input type="checkbox" name="df" bind:checked={df}>Dairy Free</label>
+        <label><input type="checkbox" name="gf" bind:checked={gf}>Gluten Free</label>
+        </form>
+        <button on:click={handleSubmit}>Submit</button>
+        <main>
         <section class="ings">
             {#each ingredients as ingredient}
             <p>{ingredient}</p>
