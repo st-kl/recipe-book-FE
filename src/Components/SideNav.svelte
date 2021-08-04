@@ -1,9 +1,4 @@
-<div class="SideNav">
+<div class="side-nav">
     <slot></slot>
 </div>
 
-<style>
-    .SideNav {
-        background-color: cornsilk;
-    }
-</style>
