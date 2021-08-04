@@ -30,6 +30,7 @@
             <Search />
             <Filter />
             <RecipeScrapeUrl />
+            <Link to="/createrecipe"><button>Create Recipe</button></Link>
         </SideNav>
         {#if recipes.length === 0}
         <h1>Loading Your CookBook Recipes...</h1>
