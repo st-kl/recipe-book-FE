@@ -40,6 +40,15 @@
         <label for="step">Step</label>
         <input bind:value={newStep} type="text" name="step" placeholder="step" required>
         <button type="button" on:click={handleSteps}>+</button>
+        <h4>Dietary Info - Click all that apply</h4>
+        <label for="vegan">Vegan</label>
+        <input type="checkbox" name="vegan">
+        <label for="vegetarian">Vegetarian</label>
+        <input type="checkbox" name="vegetarian">
+        <label for="df">Dairy Free</label>
+        <input type="checkbox" name="df">
+        <label for="gf">Gluten Free</label>
+        <input type="checkbox" name="gf">
     </form>
     <main>
         <section class="ings">
