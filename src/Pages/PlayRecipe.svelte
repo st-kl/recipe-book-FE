@@ -35,6 +35,7 @@
     const nextStep = () => {
         endIndex = endIndex + 1
     }
+
 </script>
 
 <div>
@@ -54,6 +55,7 @@
     <button on:click={startRecipe}>{!start ? "Let's Get Cooking!" : "I Need A Break!"}</button>
     {#if start}
     <button on:click={prevStep} disabled={endIndex <= 1}>Back</button>
+    <!-- expression for button disable? -->
     <button on:click={nextStep}>Next</button>
     <main class="steps">
         {#if steps.length !== 0}
@@ -65,7 +67,7 @@
         {:else}
         {#each instructions.slice(0, endIndex) as instruction, i}
         <Card>
-        <p>{i + 1}: {instruction}</p>
+        <p in:fly="{{ delay: 100, y: 200, opacity: 0.9, duration: 1000}}" out:fade>{i + 1}: {instruction}</p>
         </Card>
         {/each}
         {/if}
