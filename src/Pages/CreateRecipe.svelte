@@ -92,26 +92,29 @@
                     <input bind:value={newStep} type="text" name="step" placeholder="step" required>
                     <button type="button" on:click={handleSteps}>Add Step</button>
                     <button class="add-recipe" on:click={handleSubmit}>Add Recipe</button>
+                    {#if submitted}
+                    <h6>Your recipe has been added to your cookbook!</h6>
+                    <button on:click="{() => submitted = !submitted}">Add Another</button>
+                    {/if}
                 </div>
                 </form>
         </div>
     
     <div class="main-content">
     <main>
+    <h2>Your Recipe So Far...</h2>
     <section class="ings">
+        <h3>Ingredients</h3>
         {#each ingredients as ingredient}
                 <p>{ingredient}</p>
                 {/each}
             </section>
             <section class="steps">
+                <h3>Instructions</h3>
                 {#each steps as step, i}
                 <p>{i + 1}: {step}</p>
                 {/each}
             </section>
-            {#if submitted}
-            <h4>Your recipe has been added to your cookbook!</h4>
-            <button on:click="{() => submitted = !submitted}">Add Another</button>
-            {/if}
         </main>
     </div>
 
@@ -144,11 +147,26 @@
         .add-recipe {
             border: green solid 2px;
         }
+        .main-content {
+            position: relative;
+            left: 40%;
+            background-color: white;
+            width: 50%;
+        }
+        .ings, .steps {
+            text-align: center;
+            border-radius: 5px;
+            margin: 25% 0;
+        }
         button {
             border-radius: 5px;
         }
         h4 {
             text-align: center;
             text-decoration: underline;
+        }
+        main {
+            position: absolute;
+            top: 5vh;
         }
     </style>
