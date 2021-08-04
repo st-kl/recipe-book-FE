@@ -33,7 +33,7 @@
         recipe
       )
       .then((response) => {
-        console.log(recipe, 'POST ZZZZZZ<<<<<<<');
+        console.log(response, recipe, 'POST ZZZZZZ<<<<<<<');
       });
   };
 </script>
