@@ -32,15 +32,15 @@
     <Filter />
     <RecipeScrapeUrl />
   </SideNav>
-  <main class="my-cookbook">
-    {#each results as result}
+    <main class="my-cookbook">
+      {#each results as result}
       <Link to="/recipes/{result._id}">
         <Card
-          ><h3 class="myRecipeTitle">
-            {result.title}
-          </h3>
-          <img
-            src={result.image}
+        ><h3 class="myRecipeTitle">
+          {result.title}
+        </h3>
+        <img
+        src={result.image}
             alt={result._id}
             width="100px"
             height="100px"

@@ -16,10 +16,8 @@
 
 <Router>
   <Nav />
-  <main>
-    <h1>Logo</h1>
-  </main>
-  <div>
+
+  <div class=whole-app>
     <Route path="/">
       <Login />
     </Route>

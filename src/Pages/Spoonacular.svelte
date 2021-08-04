@@ -3,6 +3,7 @@
   import Profile from '../Components/Profile.svelte';
   import Search from '../Components/Search.svelte';
   import Filter from '../Components/Filter.svelte';
+  import Dropdowns from '../Components/Dropdowns.svelte';
   import RecipeScrapeUrl from '../Components/RecipeScrapeUrl.svelte';
   import Card from '../Components/Card.svelte';
   import axios from 'axios';
@@ -93,49 +94,60 @@
   };
 </script>
 
-<div>
+<div class="spoonacular-page">
   <h1>Spoonacular Page</h1>
   <SideNav>
-    <Profile />
-    <Search />
-    <Filter />
-    <RecipeScrapeUrl />
-  </SideNav>
-  <h3>Categories:</h3>
-  <label> <input type="checkbox" bind:checked={visible} />Cuisine</label>
-  {#if visible}
-    <select bind:value={cuisine} on:change={handleChange}>
-      {#each cuisines as cuisine}
-        <option value={cuisine}>{cuisine}</option>
-      {/each}
-    </select>{/if}
-  <h3>Dietary</h3>
-  <label> <input type="checkbox" bind:checked={visibleDietary} />Dietary</label>
-  {#if visibleDietary}
-    <select bind:value={dietary} on:change={handleDiets}>
-      {#each diets as diet}
-        <option value={diet}>{diet}</option>
-      {/each}
-    </select>{/if}
-  {#each results as result}
-    <Link to="/recipe/{result.id}"
-      ><Card>
-        <p>{result.title}</p>
-        <img
-          src="https://spoonacular.com/recipeImages/{result.image}"
-          alt="food"
-          width="100px"
-          height="100px"
+    <div class="side-nav-contents">
+      <h3>Recipe Search</h3>
+      <!-- <Search /> -->
+      <Filter />
+      <div>
+        <h3>Categories:</h3>
+        <label> <input type="checkbox" bind:checked={visible} />Cuisine</label>
+      </div>
+      <div>
+        <h3>Dietary</h3>
+        <label>
+          <input type="checkbox" bind:checked={visibleDietary} />Dietary</label
+        >
+      </div>
+      <form on:submit={handleSubmit}>
+        <input
+          bind:value={searchTerm}
+          id="search"
+          placeholder="Enter search term here"
         />
-      </Card>
-    </Link>
-  {/each}
-  <form on:submit={handleSubmit}>
-    <input
-      bind:value={searchTerm}
-      id="search"
-      placeholder="Enter search term here"
-    />
-    <button type="submit">Submit</button>
-  </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </SideNav>
+  <div class="main-content">
+    <div class="spoonacular-recipes">
+      {#if visible}
+        <select bind:value={cuisine} on:change={handleChange}>
+          {#each cuisines as cuisine}
+            <option value={cuisine}>{cuisine}</option>
+          {/each}
+        </select>{/if}
+      {#if visibleDietary}
+        <select bind:value={dietary} on:change={handleDiets}>
+          {#each diets as diet}
+            <option value={diet}>{diet}</option>
+          {/each}
+        </select>{/if}
+      {#each results as result}
+        <Link to="/recipe/{result.id}">
+          <Card>
+            <p>{result.title}</p>
+            <img
+              src="https://spoonacular.com/recipeImages/{result.image}"
+              alt="food"
+              width="100px"
+              height="100px"
+            />
+          </Card>
+        </Link>
+      {/each}
+    </div>
+  </div>
 </div>

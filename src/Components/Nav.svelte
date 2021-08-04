@@ -1,6 +1,7 @@
 <script>
   import { Router, Link, Route } from 'svelte-navigator';
   import Spoonacular from '../Pages/Spoonacular.svelte';
+  let source = "../assets/image.png"
 </script>
 
 <nav class="nav-bar">
@@ -11,6 +12,8 @@
       <Link to="mycookbook">My Recipes</Link>
     </div>
   </div>
-  <Link to="/">Login</Link>
+  <Link to="/">
+    <img src= {source} alt="profile logo" class="profile-logo" />
+  </Link>
   <!-- <Link to="explore">Explore</Link> -->
 </nav>
