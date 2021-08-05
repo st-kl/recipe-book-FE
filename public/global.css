@@ -8,8 +8,13 @@ body {
 body {
   color: #333;
   margin: 0;
+<<<<<<< spoonacularStyling
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+=======
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+>>>>>>> main
 }
 
 .nav-bar {
@@ -27,14 +32,20 @@ body {
 .nav-left {
   display: flex;
   justify-content: space-between;
-  width: 40vw;
+  align-items: center;
+  width: 50vw;
   padding: 0 0 0 2em;
 }
 
 .nav-left-right-side {
   display: flex;
   justify-content: space-between;
-  width: 20vw;
+  width: 25vw;
+}
+.profile-logo {
+  height: 7vh;
+  margin-right: 2em;
+  padding: 1em;
 }
 
 .main-content {
@@ -48,11 +59,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: orange;
-}
-
-.profile-logo {
-  padding: 2em;
 }
 
 .side-nav {
@@ -70,27 +76,35 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   padding: 2em;
+}
+.recipe-search,
+.search,
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 a {
-  color: rgb(0, 100, 200);
+  color: black;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: rgb(132, 8, 144);
 }
 
-a:visited {
-  color: rgb(0, 80, 160);
-}
+/* a:visited {
+  color: rgb(125, 0, 160);
+} */
 
 label {
   display: block;
 }
 
-input,
 button,
 select,
 textarea {
@@ -124,4 +138,168 @@ button:not(:disabled):active {
 
 button:focus {
   border-color: #666;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.single-recipe {
+  display: flex;
+  height: 88vh;
+  margin-top: 12vh;
+}
+
+.recipe-left,
+.recipe-right {
+  width: 50vw;
+}
+
+.recipe-left {
+  background-color: #f4f4f4;
+  margin: 4vh 3vw;
+  padding: 2em;
+}
+
+.recipe-right {
+  padding: 1em 2.5em 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.recipe-pic-title {
+  display: flex;
+}
+
+.recipe-title {
+  display: flex;
+
+  font-family: Satisfy, 'Courier New', Courier, monospace;
+  font-size: xx-large;
+}
+
+.recipe-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-sub1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-sub2 {
+  display: flex;
+}
+
+.info2 {
+  background-color: black;
+  color: white;
+  padding: 0.2em 0.5em;
+  width: 40px;
+  margin-right: 20px;
+  text-align: center;
+  border-radius: 0.2em;
+  font-size: 12px;
+}
+
+.yeild,
+.cook-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-style: solid;
+  border-width: 2px;
+  padding: 0.5em 1em;
+  width: 80px;
+}
+
+.recipe-pic {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  margin-right: 1em;
+}
+
+.ingredients-sec {
+  display: flex;
+  margin-top: 2em;
+}
+
+.ingredients-list {
+  display: flex;
+}
+
+#ingredients-heading,
+#notes-title {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.ingredient-unit {
+  width: 90px;
+}
+
+.ingredient-amount {
+  width: 70px;
+}
+
+.ingredient-name {
+  width: 170px;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-input {
+  width: 150px;
+  height: 220px;
+}
+
+.save-button {
+  margin-bottom: 2em;
+}
+
+.save-button:hover {
+  background-color: rgba(132, 8, 144, 0.2);
+}
+/* MY COOKBOOK */
+.icon-and-name {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  font-family: Satisfy, 'Courier New', Courier, monospace;
+}
+
+#mc-logo {
+  margin-right: 0;
+}
+
+.small-recipe-card {
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 260px;
+  margin: 0 2em 1em 1em;
+}
+
+.small-recipe-image {
+  width: 200px;
+  height: 150px;
+  z-index: 10;
+}
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0.2em;
 }

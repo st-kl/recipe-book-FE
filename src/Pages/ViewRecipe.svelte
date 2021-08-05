@@ -14,7 +14,6 @@
 
   // >>>>>>>>>RECIPE ID = $params.id<<<<<<<<<
 
-
   onMount(async () => {
     let response = await axios
       .get(
@@ -31,25 +30,23 @@
         recipe = response.data;
         const steps = response.data.analyzedInstructions[0].steps;
 
-        const newInstructions = []
+        const newInstructions = [];
 
         for (let i = 0; i < steps.length; i++) {
-
           newInstructions.push(steps[i].step);
         }
-        instructions = [...newInstructions]
+        instructions = [...newInstructions];
         const ings = response.data.extendedIngredients;
 
-        const newIngredients = []
+        const newIngredients = [];
         for (let i = 0; i < ings.length; i++) {
-
           newIngredients.push({
             name: ings[i].name,
             amount: ings[i].amount,
             unit: ings[i].unit,
           });
         }
-        ingredients = [...newIngredients] 
+        ingredients = [...newIngredients];
         sendRecipe.servings = recipe.servings;
         sendRecipe.cookingTime = recipe.CookingMinutes;
         sendRecipe.preparationTime = recipe.preparationMinutes;
@@ -80,31 +77,66 @@
   // console.log(instructions, 'INST');
 </script>
 
-<div>
-  <h1>View Recipe Page</h1>
-  <Card>
-    <ul>
-      <h3>{recipe.title}</h3>
-      <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
-      <button on:click={postRecipe} class="save-button"> SAVE </button>
-      <ul>
-        <li>Total Cook Time: {recipe.readyInMinutes} mins</li>
-        <li>Ingredients:</li>
-        <ul>
+<div class="single-recipe">
+  <div class="recipe-left">
+    <Card>
+      <div class="recipe-pic-title">
+        <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
+        <div class="recipe-info">
+          <div class="recipe-title">{recipe.title}</div>
+          <div class="info-sub1">
+            <div class="cook-time">
+              <span class="info1">Cook Time</span>
+              <span>{recipe.readyInMinutes} mins</span>
+            </div>
+            <div class="yeild">
+              <span class="info1">Portions</span>
+              <span> {recipe.servings}</span>
+            </div>
+          </div>
+          <div class="info-sub2">
+            {#if recipe.dairyFree}
+              <div class="info2">DF</div>
+            {/if}
+            {#if recipe.glutenFree}
+              <div class="info2">GF</div>
+            {/if}
+            {#if recipe.vegan}
+              <div class="info2">Ve</div>
+            {/if}
+            {#if recipe.vegetarian}
+              <div class="info2">V</div>
+            {/if}
+          </div>
+        </div>
+      </div>
+      <div class="ingredients-sec">
+        <div>
+          <div class="ingredients-list" id="ingredients-heading">
+            <div class="ingredient-unit">Unit</div>
+            <div class="ingredient-amount">Amt</div>
+            <div class="ingredient-name">Ingredients</div>
+          </div>
           {#each ingredients as ingredient}
-            <li>{ingredient.name}</li>{/each}
-        </ul>
-        <li>Dairy?: {recipe.dairyFree}</li>
-        <li>Gluten Free?: {recipe.glutenFree}</li>
-        <li>Vegan?: {recipe.vegan}</li>
-        <li>Vegetarian?: {recipe.vegetarian}</li>
-        <ol>
-          {#each instructions as instruction}
-            <li>{instruction}</li>
-          {/each}
-        </ol>
-      </ul>
-    </ul>
-    <Button />
-  </Card>
+          <div class="ingredients-list">
+            <div class="ingredient-unit">{ingredient.unit}</div>
+            <div class="ingredient-amount">{ingredient.amount}</div>
+            <div class="ingredient-name">{ingredient.name}</div>
+          </div>{/each}
+        </div>
+        <div class="notes">
+          <div id="notes-title">Notes</div>
+          <input class="text-input" type="text"/>
+        </div>
+      </div>
+    </Card>
+  </div>
+  <div class="recipe-right">
+    <ol>
+      {#each instructions as instruction}
+      <li>{instruction}</li>
+      {/each}
+    </ol>
+    <button on:click={postRecipe} class="save-button"> SAVE </button>
+  </div>
 </div>

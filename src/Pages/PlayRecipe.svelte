@@ -1,4 +1,5 @@
 <script>
+
     import {useParams} from 'svelte-navigator';
     import { fly, fade } from 'svelte/transition';
     import {onMount} from 'svelte';
@@ -16,18 +17,23 @@
     let endIndex = 1;
     let current = 0;
 
-    onMount(async () => {
-        let response = await axios.get(`https://mycookeroo.herokuapp.com/api/recipes?recipeId=${id}`).then((response) => {
-           recipe = response.data.recipes[0];
-           title = recipe.title;
-           ingredients = recipe.ingredients;
-           !recipe.steps ? instructions = recipe.instructions : steps = recipe.steps;
-        });
-    });
-    
-    const startRecipe = () => {
-        start = !start;
-    }
+  onMount(async () => {
+    let response = await axios
+      .get(`https://mycookeroo.herokuapp.com/api/recipes?recipeId=${id}`)
+      .then((response) => {
+        recipe = response.data.recipes[0];
+        title = recipe.title;
+        ingredients = recipe.ingredients;
+        !recipe.steps
+          ? (instructions = recipe.instructions)
+          : (steps = recipe.steps);
+      });
+  });
+
+
+  const startRecipe = () => {
+    start = !start;
+  };
 
     const prevStep = () => {
         endIndex = endIndex - 1
@@ -39,21 +45,32 @@
         current = current + 1
     }
 
+
+  const prevStep = () => {
+    endIndex = endIndex - 1;
+  };
+
+  const nextStep = () => {
+    endIndex = endIndex + 1;
+  };
 </script>
 
 <div>
-    {#if !recipe}
+  {#if !recipe}
     <h1>Loading Recipe to Play...</h1>
-    {:else}
+  {:else}
     <SideNav>
+
         <div class='ing'>
         <h3>Ingredients</h3>
         {#each ingredients as {name, amount, unit}}
-        <label>
-            <input type=checkbox>
-            {amount} {unit} {name} 
+          <label>
+          <input type="checkbox" />
+          {amount}
+          {unit}
+          {name}
         </label>
-        {/each}
+          {/each}
         <button class="{start ? 'start red' : 'start green'}" on:click={startRecipe}>{!start ? "Let's Get Cooking!" : "I Need A Break!"}</button>
         {#if start}
         <button class="controls" id="back" on:click={prevStep} disabled={endIndex <= 1}>←</button>

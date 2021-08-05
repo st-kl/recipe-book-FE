@@ -38,39 +38,66 @@
   };
 </script>
 
-<div>
-  <h1>View Recipe Page</h1>
-
-  <ul>
-    <h3>{recipe.title}</h3>
-    <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
-    <button on:click={patchRecipe} class="save-button"> SAVE </button>
-    <ul>
-      <li>Total Cook Time: {recipe.totalCookTime} mins</li>
-      <li>Ingredients:</li>
-      <ul>
-        {#each ingredients as ingredient, i}
-          <li id={i}>
-            {ingredient.name}: {ingredient.amount}
-            {ingredient.unit}
-          </li>
-          {#if editOptions}
-            <input type="text" bind:value={ingredient.name} />
-            <input type="number" bind:value={ingredient.amount} />
-            <input type="text" bind:value={ingredient.unit} />
-          {/if}
-        {/each}
-      </ul>
-      <li>Dairy?: {recipe.dairyFree}</li>
-      <li>Gluten Free?: {recipe.glutenFree}</li>
-      <li>Vegan?: {recipe.vegan}</li>
-      <li>Vegetarian?: {recipe.vegetarian}</li>
-      <ol>
-        {#each instructions as instruction}
-          <li>{instruction}</li>
-        {/each}
-      </ol>
-    </ul>
-  </ul>
-  <button class="editOptions" on:click={toggleEditing}>EDIT</button>
+<div class="single-recipe">
+  <div class="recipe-left">
+    <Card>
+      <div class="recipe-pic-title">
+        <img src={recipe.image} alt="featured recipe" class="recipe-pic" />
+        <div class="recipe-info">
+          <div class="recipe-title">{recipe.title}</div>
+          <div class="info-sub1">
+            <div class="cook-time">
+              <span class="info1">Cook Time</span>
+              <span>{recipe.totalTime}</span>
+            </div>
+            <div class="yeild">
+              <span class="info1">Portions</span>
+              <span> {recipe.servings}</span>
+            </div>
+          </div>
+          <div class="info-sub2">
+            {#if recipe.dairyFree}
+              <div class="info2">DF</div>
+            {/if}
+            {#if recipe.glutenFree}
+              <div class="info2">GF</div>
+            {/if}
+            {#if recipe.vegan}
+              <div class="info2">Ve</div>
+            {/if}
+            {#if recipe.vegetarian}
+              <div class="info2">V</div>
+            {/if}
+          </div>
+        </div>
+      </div>
+      <div class="ingredients-sec">
+        <div>
+          <div class="ingredients-list" id="ingredients-heading">
+            <div class="ingredient-unit">Unit</div>
+            <div class="ingredient-amount">Amt</div>
+            <div class="ingredient-name">Ingredients</div>
+          </div>
+          {#each ingredients as ingredient}
+            <div class="ingredients-list">
+              <div class="ingredient-unit">{ingredient.unit}</div>
+              <div class="ingredient-amount">{ingredient.amount}</div>
+              <div class="ingredient-name">{ingredient.name}</div>
+            </div>{/each}
+        </div>
+        <div class="notes">
+          <div id="notes-title">Notes</div>
+          <input class="text-input" type="text" />
+        </div>
+      </div>
+    </Card>
+  </div>
+  <div class="recipe-right">
+    <ol>
+      {#each instructions as instruction}
+        <li>{instruction}</li>
+      {/each}
+    </ol>
+    <button class="save-button" on:click={toggleEditing}>EDIT</button>
+  </div>
 </div>
