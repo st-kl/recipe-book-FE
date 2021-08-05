@@ -37,6 +37,11 @@ body {
   justify-content: space-between;
   width: 25vw;
 }
+.profile-logo {
+  height: 7vh;
+  margin-right: 2em;
+  padding: 1em;
+}
 
 .main-content {
   position: absolute;
@@ -68,6 +73,14 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 2em;
+}
+.recipe-search,
+.search,
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 a {
@@ -251,4 +264,37 @@ ul {
 
 .save-button:hover {
   background-color: rgba(132, 8, 144, 0.2);
+}
+/* MY COOKBOOK */
+.icon-and-name {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  font-family: Satisfy, 'Courier New', Courier, monospace;
+}
+
+#mc-logo {
+  margin-right: 0;
+}
+
+.small-recipe-card {
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 260px;
+  margin: 0 2em 1em 1em;
+}
+
+.small-recipe-image {
+  width: 200px;
+  height: 150px;
+  z-index: 10;
+}
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0.2em;
 }

@@ -31,11 +31,7 @@
 </nav>
 
 <style>
-  .profile-logo {
-    height: 7vh;
-    margin-right: 2em;
-    padding: 1em;
-  }
+  
   .profile-logo:hover {
     background-color: rgba(132, 8, 144, 0.2);
   }

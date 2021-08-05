@@ -38,8 +38,7 @@
   };
 </script>
 
-<div>
-  <h1>View Recipe Page</h1>
+<div class="single-recipe">
 
   <ul>
     <h3>{recipe.title}</h3>

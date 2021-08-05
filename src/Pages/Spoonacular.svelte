@@ -111,20 +111,11 @@
         </form>
       </div>
       <style>
-        .recipe-search,
-        .search,
-        form {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-        }
         button {
           padding: 0.5em 2em;
           background-color: black;
           color: white;
           border-radius: 0.2em;
-          margin top: 20px;
         }
         button:hover {
           background-color: rgb(132, 8, 144);
@@ -237,21 +228,7 @@
     /* justify-content: space-between; */
     flex-wrap: wrap;
   }
-  .small-recipe-card {
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: 260px;
-    margin: 0 2em 1em 1em;
-  }
-
-  .small-recipe-image {
-    width: 200px;
-    height: 150px;
-    z-index: 10;
-  }
-
+  
   .card-text {
     padding: 0 1em;
   }
