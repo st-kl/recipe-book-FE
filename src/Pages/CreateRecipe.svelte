@@ -42,6 +42,7 @@
     sendRecipe.dairyFree = df;
     sendRecipe.glutenFree = gf;
     sendRecipe.userId = '1';
+    sendRecipe.image = 'https://thumbs.dreamstime.com/b/healthy-food-background-fruits-vegetables-cereal-nuts-superfood-dietary-balanced-vegetarian-eating-products-kitchen-143677456.jpg';
   };
 
   const handleSubmit = async () => {
