@@ -122,7 +122,7 @@
     .start {
         position: absolute;
         bottom: 8vh;
-        left: 5vw;
+        left: 2.5vw;
         border-radius: 30px;
         padding: 10px;
     }
@@ -135,7 +135,7 @@
     .controls {
         display: inline;
         position: relative;
-        bottom: 0.1vh;
+        bottom: 0.3vh;
         border-radius: 50%;
         font-size: 20px;
         padding: 10px;
@@ -145,10 +145,10 @@
     }
     #back {
         position: absolute;
-        left: 5vw;
+        right: 7vw;
     }
     #next {
         position: absolute;
-        right: 8.5vw;
+        left: 6vw;
     }
 </style>
