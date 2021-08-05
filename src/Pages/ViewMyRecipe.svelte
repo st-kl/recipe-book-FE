@@ -98,6 +98,7 @@
         <li>{instruction}</li>
       {/each}
     </ol>
-    <button class="save-button" on:click={toggleEditing}>EDIT</button>
+    <!-- <button class="save-button" on:click={playRecipe}>PLAY RECIPE</button> -->
+    <button class="save-button" on:click={toggleEditing}>EDIT RECIPE</button>
   </div>
 </div>
