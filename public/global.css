@@ -142,6 +142,7 @@ ul {
 }
 
 .single-recipe {
+  position: relative;
   display: flex;
   height: 88vh;
   margin-top: 12vh;

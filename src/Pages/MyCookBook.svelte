@@ -8,6 +8,8 @@
   import axios from 'axios';
   import { onMount } from 'svelte';
   import { Link } from 'svelte-navigator';
+import Loader from '../Components/Loader.svelte';
+
 
   let recipes = [];
 
@@ -46,7 +48,7 @@
   </SideNav>
   <div class="main-content">
     {#if recipes.length === 0}
-      <h1>Loading Your CookBook Recipes...</h1>
+     <Loader></Loader>
     {:else}
       <div class="recipes">
         {#each recipes as recipe (recipe._id)}
