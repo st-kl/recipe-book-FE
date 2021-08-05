@@ -64,6 +64,7 @@ import Loader from '../Components/Loader.svelte';
 
   const handleChange = async (event) => {
     const searchObj = { ...options };
+    submitSearch = true;
     searchObj.params.cuisine = cuisine;
     options = searchObj;
     let response = await axios.get(
@@ -71,10 +72,12 @@ import Loader from '../Components/Loader.svelte';
       options
     );
     results = response.data.results;
+    submitSearch = false;
   };
 
   const handleDiets = async (event) => {
     const searchObj = { ...options };
+    submitSearch = true;
     searchObj.params.diet = dietary;
     options = searchObj;
     let response = await axios.get(
@@ -82,6 +85,7 @@ import Loader from '../Components/Loader.svelte';
       options
     );
     results = response.data.results;
+    submitSearch = false;
   };
 
   const handleSubmit = async (event) => {
