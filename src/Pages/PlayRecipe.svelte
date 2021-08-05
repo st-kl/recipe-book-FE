@@ -48,82 +48,118 @@
   {#if !recipe}
     <h1>Loading Recipe to Play...</h1>
   {:else}
-    <SideNav>
-      <div class="ing">
-        <h3>Ingredients</h3>
-        {#each ingredients as { name, amount, unit }}
-          <label>
-            <input type="checkbox" />
-            {amount}
-            {unit}
-            {name}
-          </label>
-        {/each}
-        <button
-          class={start ? 'start red' : 'start green'}
-          on:click={startRecipe}
-          >{!start ? "Let's Get Cooking!" : 'I Need A Break!'}</button
-        >
-        {#if start}
+    <div class="single-recipe">
+      <div class="recipe-left">
+        <div class="ing">
+          <h3>Ingredients</h3>
+          <div class="ingredients-play">
+            {#each ingredients as { name, amount, unit }}
+              <label>
+                <input type="checkbox" id="recipe-check" />
+                {amount}
+                {unit}
+                {name}
+              </label>
+            {/each}
+          </div>
           <button
-            class="controls"
-            id="back"
-            on:click={prevStep}
-            disabled={endIndex <= 1}>←</button
+            class={start ? 'start red' : 'start green'}
+            on:click={startRecipe}
+            >{!start ? "Let's Get Cooking!" : 'I Need A Break!'}</button
           >
-          <button
-            class="controls"
-            id="next"
-            on:click={nextStep}
-            disabled={endIndex === steps.length ||
-              endIndex === instructions.length}>→</button
-          >
-        {/if}
+        </div>
       </div>
-    </SideNav>
-    <div class="main-content">
-      <h1>{title}</h1>
-      {#if start}
-        <main class="steps">
-          {#if steps.length !== 0}
-            {#each steps.slice(0, endIndex) as { number, step, instructions }, i}
-              <p
-                class={current === i ? 'current' : ''}
-                in:fly={{ delay: 100, y: 200, opacity: 0.9, duration: 1000 }}
-                out:fade
-              >
-                {number}: {step}
-              </p>
-            {/each}
-          {:else}
-            {#each instructions.slice(0, endIndex) as instruction, i}
-              <p
-                class={current === i ? 'current' : ''}
-                in:fly={{ delay: 100, y: 200, opacity: 0.9, duration: 1000 }}
-                out:fade
-              >
-                {i + 1}: {instruction}
-              </p>
-            {/each}
+      <div class="recipe-right">
+        <div class="play-title">
+          <h2 class="recipe-play-title">{title}</h2>
+        </div>
+        <div class="play-main">
+          {#if start}
+            <main class="steps">
+              {#if steps.length !== 0}
+                {#each steps.slice(0, endIndex) as { number, step, instructions }, i}
+                  <p
+                    class={current === i ? 'current' : ''}
+                    in:fly={{
+                      delay: 100,
+                      y: 200,
+                      opacity: 0.9,
+                      duration: 1000,
+                    }}
+                    out:fade
+                  >
+                    {number}: {step}
+                  </p>
+                {/each}
+              {:else}
+                {#each instructions.slice(0, endIndex) as instruction, i}
+                  <p
+                    class={current === i ? 'current' : ''}
+                    in:fly={{
+                      delay: 100,
+                      y: 200,
+                      opacity: 0.9,
+                      duration: 1000,
+                    }}
+                    out:fade
+                  >
+                    {i + 1}: {instruction}
+                  </p>
+                {/each}
+              {/if}
+            </main>
           {/if}
-        </main>
-      {/if}
+        </div>
+        <div class="play-buttons">
+          {#if start}
+            <button
+              class="controls"
+              id="back"
+              on:click={prevStep}
+              disabled={endIndex <= 1}>←</button
+            >
+            <button
+              class="controls"
+              id="next"
+              on:click={nextStep}
+              disabled={endIndex === steps.length ||
+                endIndex === instructions.length}>→</button
+            >
+          {/if}
+        </div>
+      </div>
     </div>
   {/if}
 </div>
 
 <style>
-  .ing {
-    margin: 1vw;
-  }
   .ing h3 {
     text-align: center;
   }
-  .ing label,
-  input {
-    text-align: justify;
+
+  .ingredients-play {
+    width: 300px;
+    border: rgb(132, 8, 144) solid 2px;
+    padding: 2em;
   }
-  .main-content {
+
+  .ing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 70vh;
+  }
+
+  #recipe-check {
+    margin-right: 1em;
+  }
+
+  .recipe-play-title {
+    text-align: center;
+    font-family: Satisfy;
+  }
+  /* .main-content {
     overflow-x: hidden;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -133,8 +169,8 @@
   .main-content h1 {
     position: absolute;
     top: 0.5em;
-  }
-  .steps {
+  } */
+  /* .steps {
     position: absolute;
     top: 4em;
     font-size: 20px;
@@ -143,7 +179,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-  }
+  } */
   .steps p {
     background-color: #f4f4f4;
     padding: 10px;
@@ -153,35 +189,63 @@
     border: solid green 2px;
   }
   .start {
-    position: absolute;
-    bottom: 8vh;
-    left: 2.5vw;
-    border-radius: 30px;
+    border-radius: 0.2em;
     padding: 10px;
+    width: 200px;
   }
   .red {
     border: red solid 2px;
   }
-  .green {
-    border: green solid 2px;
+
+  .red:hover {
+    background-color: red;
+    color: white;
   }
-  .controls {
+  .green {
+    border: rgb(132, 8, 144) solid 2px;
+  }
+
+  .green:hover {
+    background-color: rgb(132, 8, 144);
+    color: white;
+  }
+  /* .controls {
     display: inline;
     position: relative;
     bottom: 0.3vh;
     border-radius: 50%;
     font-size: 20px;
     padding: 10px;
-  }
+  } */
   .steps {
     text-align: center;
   }
+
+  .play-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.3em;
+  }
+
+  #next,
   #back {
+    width: 150px;
+    height: 50px;
+    font-size: 24px;
+    color: rgb(132, 8, 144);
+  }
+
+  #next:hover,
+  #back:hover {
+    background-color: rgb(132, 8, 144);
+    color: white;
+  }
+  /* #back {
     position: absolute;
     right: 7vw;
   }
   #next {
     position: absolute;
     left: 6vw;
-  }
+  } */
 </style>

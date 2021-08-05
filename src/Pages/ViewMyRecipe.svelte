@@ -1,7 +1,7 @@
 <script>
   import axios from 'axios';
   import { onMount } from 'svelte';
-  import { useParams } from 'svelte-navigator';
+  import { useParams, Link } from 'svelte-navigator';
   import Card from '../Components/Card.svelte';
   import Button from '../Components/Button.svelte';
 
@@ -98,7 +98,11 @@
         <li>{instruction}</li>
       {/each}
     </ol>
-    <!-- <button class="save-button" on:click={playRecipe}>PLAY RECIPE</button> -->
-    <button class="save-button" on:click={toggleEditing}>EDIT RECIPE</button>
+    <div class="play-edit-buttons">
+      <Link to="/play/{recipe._id}">
+        <button class="save-button">PLAY RECIPE</button></Link
+      >
+      <button class="save-button" on:click={toggleEditing}>EDIT RECIPE</button>
+    </div>
   </div>
 </div>
