@@ -10,6 +10,8 @@
   import config from '../../config';
   import { afterUpdate, onMount } from 'svelte';
   import { Link } from 'svelte-navigator';
+import Loader from '../Components/Loader.svelte';
+
 
   const cuisines = [
     'african',
@@ -45,6 +47,7 @@
     'ovo vegetarian',
   ];
 
+  let submitSearch = false;
   let visible = false;
   let cuisine = '';
   let dietary = '';
@@ -83,6 +86,7 @@
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    submitSearch = true;
     const searchObj = { ...options };
     searchObj.params.query = searchTerm;
     options = searchObj;
@@ -91,7 +95,10 @@
       options
     );
     results = response.data.results;
+    submitSearch = false;
   };
+
+  
 </script>
 
 <div class="spoonacular-page">
@@ -174,6 +181,9 @@
     </div>
   </SideNav>
   <div class="main-content">
+    {#if submitSearch === true}
+    <Loader></Loader>
+   {:else}
     <div class="spoonacular-recipes">
       {#if visible}
         <select id="cuisine-drop" bind:value={cuisine} on:change={handleChange}>
@@ -202,6 +212,7 @@
         </Link>
       {/each}
     </div>
+    {/if}
   </div>
 </div>
 

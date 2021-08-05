@@ -4,6 +4,8 @@
   import { useParams } from 'svelte-navigator';
   import Card from '../Components/Card.svelte';
   import Button from '../Components/Button.svelte';
+import Loader from '../Components/Loader.svelte';
+  
 
   let editOptions = false;
   const params = useParams();
@@ -39,6 +41,9 @@
 </script>
 
 <div class="single-recipe">
+  {#if recipe.length === 0}
+  <Loader></Loader>
+ {:else}
   <div class="recipe-left">
     <Card>
       <div class="recipe-pic-title">
@@ -101,4 +106,5 @@
     <!-- <button class="save-button" on:click={playRecipe}>PLAY RECIPE</button> -->
     <button class="save-button" on:click={toggleEditing}>EDIT RECIPE</button>
   </div>
+  {/if}
 </div>
